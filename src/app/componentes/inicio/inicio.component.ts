@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx'; // Importar la librería XLSX
@@ -13,39 +13,11 @@ import * as XLSX from 'xlsx'; // Importar la librería XLSX
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
-    loginForm:FormGroup;
     excelData: any[] = []; // Almacena los datos del Excel
     selectedItems: any[] = []; // Almacena los elementos seleccionados
   
-    constructor(private fb:FormBuilder,private router:Router){
-      this.loginForm=this.fb.group({
-        username: ['', [Validators.required, Validators.minLength(4)]], // Valida que el usuario sea obligatorio y tenga al menos 4 caracteres
-        password: ['', [Validators.required, Validators.minLength(4)]], // Valida que la contraseña sea obligatoria y tenga al menos 4 caracteres
-        email: ['', [Validators.required, Validators.email]],
-        comunidad: ['', Validators.required]
-      })
-    }
-    onSubmit() {
-      if (this.loginForm.valid) {
-        const { username, password } = this.loginForm.value;
-        if (username === 'admin' && password === '1234') {
-          console.log("OK");
-          Swal.fire({
-            title: "Good job!",
-            text: "You clicked the button!",
-            icon: "success"
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Login Incorrecto',
-            text: 'Usuario o contraseña incorrectos',
-            timer: 2000,
-            position: 'top-end'
-          });
-        }
-      }
-    }
+    constructor(private router:Router){}
+    
   
     onFileChange(event: any) {
       const target: DataTransfer = <DataTransfer>(event.target);
